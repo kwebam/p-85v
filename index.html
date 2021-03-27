@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+	background-image: url("racing.gif");
+    background-position: center;
+    background-size: cover;
+}
+#myCanvas
+{
+    margin-top: 30px;
+	border-width:10px;
+	background-color: white; 
+	border-style:ridge;
+}
+
+h1,h4
+{
+	color: white !important;
+}
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<title></title>
+</head>
+<body onload="add();">
+
+<center>
+<h1>Car Racing</h1>
+<h1>
+	 Game Status : <span id="game_status" ></span>  
+</h1>
+
+	<canvas id="myCanvas" width="800" height="600">
+	</canvas>
+<h4>
+	<b class="text-danger">Game Rules : For Moving Car :</b>  <br>
+	White Car- press arrow keys : up arrow: for up ,down arrow:for down , left arrow: for left , right arrow:  for right<br>
+	Green Car- press keys- u: for up , d: for down , l: for left , r: for right
+</h4>
+
+</center>
+<script>
+	canvas = document.getElementById('myCanvas');
+ctx = canvas.getContext("2d");
+
+car1_width = 100;
+car1_height = 70;
+
+ background_image = "racing.jpg"
+car1_image = "car1.png";
+rover2_image = "car2.png";
+
+car1_x = 10;
+car1_y = 10;
+rover2_x = 10;
+rover2_y = 100;
+rover2_width = 100;
+rover2_height = 70;
+function add() {
+	background_imgTag = new Image(); //defining a variable with a new image
+	background_imgTag.onload = uploadBackground; // setting a function, onloading this variable
+	background_imgTag.src = background_image;   // load image
+
+	car1_imgTag = new Image(); //defining a variable with a new image
+	car1_imgTag.onload = uploadcar1; // setting a function, onloading this variable
+	car1_imgTag.src = car1_image;   // load image
+
+	rover2_imgTag = new Image(); //defining a variable with a new image
+	rover2_imgTag.onload = uploadrover2; // setting a function, onloading this variable
+	rover2_imgTag.src = rover2_image;   // load image
+}
+
+function uploadBackground() {
+	ctx.drawImage(background_imgTag, 0, 0, canvas.width, canvas.height);
+}
+
+function uploadcar1() {
+	ctx.drawImage(car1_imgTag, car1_x, car1_y, car1_width, car1_height);
+}
+
+function uploadrover2() {
+	ctx.drawImage(rover2_imgTag, rover2_x, rover2_y, rover2_width, rover2_height);
+}
+
+window.addEventListener("keydown", my_keydown);
+
+function my_keydown(e)
+{
+	keyPressed = e.keyCode;
+	console.log(keyPressed);
+		if(keyPressed == '38')
+		{
+			up();
+			console.log("up");
+		}
+		if(keyPressed == '40')
+		{
+			down();
+			console.log("down");
+		}
+		if(keyPressed == '37')
+		{
+			left();
+			console.log("left");
+		}
+		if(keyPressed == '39')
+		{
+			right();
+			console.log("right");
+		}
+		if(keyPressed == '85')
+		{
+			up2();
+			console.log("up");
+		}
+		if(keyPressed == '68')
+		{
+			down2();
+			console.log("down");
+		}
+		if(keyPressed == '76')
+		{
+			left2();
+			console.log("left");
+		}
+		if(keyPressed == '82')
+		{
+			right2();
+			console.log("right");
+		}
+		if (car1_x > 700) {
+			console.log("Car1 Won");
+			document.getElementById("game_status").innerHTML = "Car1 Won!!";
+		}
+		if (rover2_x > 700) {
+			console.log("Car2 Won");
+			document.getElementById("game_status").innerHTML = "Car2 Won!!";
+		}
+}
+
+
+function up()
+{
+	if(car1_y >=0)
+	{
+		car1_y = car1_y - 10;
+		console.log("When up arrow is pressed,  x = " + car1_x + " | y = " +car1_y);
+		 uploadBackground();
+		 uploadcar1();
+		 uploadrover2();
+	}
+}
+function down()
+{
+	if(car1_y <=500)
+	{
+		car1_y =car1_y+ 10;
+		console.log("When down arrow is pressed,  x = " + car1_x + " | y = " +car1_y);
+		uploadBackground();
+		 uploadcar1();
+		 uploadrover2();
+	}
+}
+function left()
+{
+	if(car1_x >= 0)
+	{
+		car1_x =car1_x - 10;
+		console.log("When left arrow is pressed,  x = " + car1_x + " | y = " +car1_y);
+		uploadBackground();
+		 uploadcar1();
+		 uploadrover2();
+	}
+}
+function right()
+{
+	if(car1_x <= 700)
+	{
+		car1_x =car1_x + 10;
+		console.log("When right arrow is pressed,  x = " + car1_x + " | y = " +car1_y);
+		uploadBackground();
+		uploadcar1();
+		uploadrover2();
+   }
+}
+function up2()
+{
+	if(rover2_y >=0)
+	{
+		rover2_y = rover2_y - 10;
+		console.log("When u key is pressed,  x = " + rover2_x + " | y = " +rover2_y);
+		 uploadBackground();
+		 uploadcar1();
+		 uploadrover2();
+	}
+}
+function down2()
+{
+	if(rover2_y <=500)
+	{
+		rover2_y = rover2_y + 10;
+		console.log("When d key is pressed,  x = " + rover2_x + " | y = " +rover2_y);
+		 uploadBackground();
+		 uploadcar1();
+		 uploadrover2();
+	}
+}
+function left2()
+{
+	if(rover2_x >=0)
+	{
+		rover2_x = rover2_x - 10;
+		console.log("When l key is pressed,  x = " + rover2_x + " | y = " +rover2_y);
+		 uploadBackground();
+		 uploadcar1();
+		 uploadrover2();
+	}
+}
+function right2()
+{
+	if(rover2_x <=700)
+	{
+		rover2_x = rover2_x + 10;
+		console.log("When r key is pressed,  x = " + rover2_x + " | y = " +rover2_y);
+		 uploadBackground();
+		 uploadcar1();
+		 uploadrover2();
+	}
+}
+</script>
+</body>
+</html>
